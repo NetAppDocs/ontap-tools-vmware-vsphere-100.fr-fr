@@ -1,0 +1,76 @@
+---
+permalink: deploy/deployment_checklist.html 
+sidebar: sidebar 
+keywords:  
+summary: La liste de contrôle ci-dessous vous aide à disposer de toutes les informations nécessaires avant de commencer le déploiement. 
+---
+= Liste de contrôle de déploiement
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La liste de contrôle ci-dessous vous aide à disposer de toutes les informations nécessaires avant de commencer le déploiement. Assurez-vous de noter ces valeurs pour votre configuration avant de déployer.
+
+Avant de commencer à déployer les outils ONTAP pour VMware vSphere, vous devez connaître les exigences de base en matière de stockage back-end, les exigences des applications et les licences.
+Avant de déployer les outils ONTAP pour VMware vSphere, il est conseillé de planifier votre déploiement et de choisir comment configurer les outils ONTAP dans votre environnement.
+
+*Premier noeud et autres champs communs*
+
+* Nom d'utilisateur VASA Provider(*)
+* Nom d'utilisateur administrateur(*)
+* Serveurs NTP (fournis à vCenter pour la synchronisation de l'heure)
+
+
+*Détails du certificat*
+
+* Activer le certificat CA personnalisé
+* Certificats racine et intermédiaire (ignorer lorsque l'auto-signature est activée)
+* Certificat LEAF et clé privée (ignorée lorsque l'auto-signature est activée)
+* Nom de domaine(*) (ignoré lorsque l'auto-signature est activée)
+
+
+*Détails de l'équilibreur de charge et du serveur API*
+
+* Adresse IP de l'équilibreur de charge(*)
+* IP virtuelle pour le plan de contrôle K8s(*)
+
+
+*Détails ONTAP*
+
+* LIF de gestion ONTAP(*) (IP de gestion de cluster)
+* LIF de données ONTAP(*)
+* VM de stockage(*)
+* Nom d'utilisateur du cluster ONTAP(*)
+* Activez la migration
+* Machine virtuelle principale
+* Nom de la bibliothèque de contenu(*)
+* Nom du modèle OVF(*)
+* Nom d'hôte(*)
+* Nom d'utilisateur(*)
+
+
+*Détails du réseau du premier nœud*
+
+* Nom d'hôte(*)
+* Adresse IP(*)
+* Longueur du préfixe (uniquement pour IPv6)
+* Masque de réseau (uniquement pour IPv4)(*)
+* Passerelle(*)
+* DNS primaire(*)
+* DNS secondaire(*)
+* Domaines de recherche(*)
+
+
+*Second nœud - Détails du réseau de nœud*
+
+* Nom d'hôte(*)
+* Adresse IP(*)
+
+
+*Troisième nœud - Détails du réseau de nœud*
+
+* Nom d'hôte(*)
+* Adresse IP(*)
+

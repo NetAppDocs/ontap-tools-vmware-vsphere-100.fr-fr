@@ -1,0 +1,18 @@
+---
+section: deploy
+title: Déployez les outils ONTAP
+entries:
+- title: Outils ONTAP démarrage rapide
+  url: "/deploy/qsg_10.html"
+- title: Conditions requises pour le déploiement des outils ONTAP
+  url: "/deploy/concept_space_and_sizing_requirements_for_ontap_tools_for_vmware_vsphere.html"
+- title: Comment télécharger les outils ONTAP
+  url: "/deploy/concept_how_to_download_ontap_tools.html"
+- title: Liste de contrôle de déploiement
+  url: "/deploy/deployment_checklist.html"
+- title: Préparez-vous à déployer les outils ONTAP
+  url: "/deploy/prepare_deployment.html"
+- title: Comment déployer une configuration à un seul nœud non HA
+  url: "/deploy/nonha_deployment.html"
+- title: Comment déployer la configuration HA à trois nœuds
+  url: "/deploy/ha_three_node.html"

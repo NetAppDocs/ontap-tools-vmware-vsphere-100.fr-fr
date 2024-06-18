@@ -1,0 +1,101 @@
+---
+permalink: migrate/migrate_to_ng.html 
+sidebar: sidebar 
+keywords: migrate 
+summary: Lors de la migration des données de stockage, les systèmes back-end sont intégrés manuellement via des API REST. Lors de la migration des données du fournisseur VASA, les données sont exportées à partir de la base de données Derby existante et importées dans la base de données MongoDB. 
+---
+= Migrez vers la dernière version des outils ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Lors de la migration des données de stockage, les systèmes back-end sont intégrés manuellement via des API REST. Lors de la migration des données du fournisseur VASA, les données sont exportées à partir de la base de données Derby existante et importées dans la base de données MongoDB.
+
+
+NOTE: Il est recommandé de migrer une configuration classique uniquement si la configuration gère uniquement la fonctionnalité du fournisseur VASA. Si vous disposez de fonctionnalités telles que les datastores classiques/NVMe, la réplication vVol et si SRA est activée sur un modèle classique, il est déconseillé de migrer la configuration vers les outils ONTAP pour VMware vSphere 10.0.
+
+*À propos de cette tâche*
+
+La migration est prise en charge à partir des outils ONTAP pour VMware vSphere 9.10D2 et 9.11D4 vers la version 10.0. Pour migrer de :
+* Outils ONTAP pour VMware vSphere 9.10, première mise à niveau vers la version 9.10D2, puis migration vers la version 10.0.
+* Outils ONTAP pour VMware vSphere 9.11, première mise à niveau vers la version 9.11D4, puis migration vers la version 10.0.
+
+
+NOTE: En tant qu'utilisateur existant, vous devez effectuer la sauvegarde OVA à partir du 9.10/9.11 avant de passer au correctif 9.10D ou au correctif 9.11D
+
+*Étapes*
+
+. Activez le PORT Derby 1527 sur les outils ONTAP existants pour VMware vSphere 9.10D2 et 9.11D4. Pour activer le port, connectez-vous à l'interface de ligne de commande avec l'utilisateur root et exécutez la commande suivante :
++
+[listing]
+----
+iptables -I INPUT 1 -p tcp --dport 1527 -j ACCEPT
+----
+. Déploiement des outils OVA pour ONTAP pour VMware vSphere 10.0. Voir link:../deploy/qsg_10.html["Outils ONTAP démarrage rapide"]
+. Ajoutez le vCenter que vous souhaitez migrer vers les outils ONTAP pour VMware vSphere 10.0. Voir link:../configure/add_vcenter.html["Ajoutez vCenter"].
+. Système back-end de stockage intégré localement à partir des API vCenter du plug-in distant. Voir link:../configure/onboard_svm.html["Système back-end intégré"]. Ajoutez le stockage en tant que périmètre local pour la migration.
+. Utilisez l'API suivante pour migrer :
++
+[listing]
+----
+/api/v1/vcenters/{vcguid}/migration-jobs
+
+{
+  "otv_ip": "10.10.10.10",
+  "vasa_provider_credentials": {
+    "username": "Administrator",
+    "password": "password"
+  }
+}
+----
++
+L'appel API ci-dessus donne l'ID de travail, qui peut être utilisé pour la vérification de l'état.
+
+. Utilisez l'URI suivant pour vérifier l'état :
++
+[listing]
+----
+https://xx.xx.xx.xxx:8443/virtualization/api/jobmanager/v2/jobs/<JobID>?includeSubJobsAndTasks=true
+----
+. Une fois le travail terminé, validez le rapport de migration. Vous pouvez voir le rapport de la réponse au travail dans le cadre de jobData.
+. Ajoutez les outils ONTAP du fournisseur de stockage 10.0 à vCenter et link:../configure/register_vasa.html["Enregistrez VASA Provider dans vCenter"].
+. Arrêtez le fournisseur de stockage des outils ONTAP 9.10 /9.11 VASA Provider (ARRÊTEZ LE fournisseur VASA depuis la console maint).
++
+NetApp vous recommande de ne pas supprimer le fournisseur VASA.
+
++
+Une fois l'ancien fournisseur VASA arrêté, vCenter bascule vers les outils ONTAP pour VMware vSphere 10.0. Tous les datastores et machines virtuelles sont accessibles et sont servis à partir des outils ONTAP pour VMware vSphere 10.0.
+
+. Effectuez la migration des correctifs à l'aide de l'API suivante :
++
+[listing]
+----
+/virtualization/api/v1/vcenters/{vcguid}/migration-jobs/{migration_id}
+----
++
+Le corps de la demande est vide pour l'opération de patch.
+
++
+
+NOTE: uuid est l'uuid de migration renvoyé en réponse à l'API post-migration.
+
++
+Une fois l'API de migration des correctifs réussie, toutes les machines virtuelles seront conformes à la stratégie de stockage.
+
+
+
+L'API de suppression pour la migration est :
+
+[listing]
+----
+Delete /virtualization/api/v1/vcenters/{vcguid}/migration-jobs/{migration_id}
+----
+Cette API supprime la migration par ID de migration et supprime la migration sur le vCenter donné.
+
+Une fois la migration réussie et après avoir enregistré les outils ONTAP 10.0 dans vCenter, procédez comme suit :
+
+* Actualisez le certificat sur tous les hôtes.
+* Attendez quelques instants avant d'effectuer des opérations de datastore (DS) et de machine virtuelle (VM). Le temps d'attente dépend du nombre d'hôtes, de DS et de VM présents dans la configuration. Si vous n'attendez pas, les opérations peuvent échouer par intermittence.
+

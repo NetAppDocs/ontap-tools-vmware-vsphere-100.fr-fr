@@ -1,0 +1,23 @@
+---
+permalink: configure/verify_registered_svm.html 
+sidebar: sidebar 
+keywords:  
+summary: 'Vérifier que le SVM intégré est répertorié sous VASA Provider dans l"interface utilisateur vCenter.' 
+---
+= Vérifier le SVM enregistré
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vérifier que le SVM intégré est répertorié sous VASA Provider dans l'interface utilisateur vCenter.
+
+*Étapes*
+
+. Accédez à vCenter Server.
+. Connectez-vous avec les informations d'identification de l'administrateur.
+. Sélectionnez *fournisseurs de stockage*.
+. Sélectionnez *configurer*.
+. Sous fournisseur de stockage/systèmes back-end, vérifiez que le SVM intégré est correctement répertorié.
+

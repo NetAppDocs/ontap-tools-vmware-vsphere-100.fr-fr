@@ -1,0 +1,28 @@
+---
+permalink: manage/task_collect_the_log_files.html 
+sidebar: sidebar 
+keywords:  
+summary: 'Vous pouvez collecter les fichiers journaux des outils ONTAP pour VMware vSphere à partir de l"option disponible dans l"interface utilisateur graphique des outils ONTAP \(GUI\). Le support technique peut vous demander de collecter les fichiers journaux afin de résoudre un problème.' 
+---
+= Collectez les fichiers journaux
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vous pouvez collecter les fichiers journaux des outils ONTAP pour VMware vSphere à partir de l'option disponible dans l'interface utilisateur du gestionnaire d'outils ONTAP. Le support technique peut vous demander de collecter les fichiers journaux afin de résoudre un problème.
+
+*Étapes*
+
+. Lancement `\https://loadBalanceIP:8443/virtualization/ui/` À partir d'un navigateur avec les informations d'identification de l'administrateur des outils ONTAP fournies pendant le déploiement.
+. Sélectionnez *Log Bundles* dans la barre latérale.
++
+Cette opération peut prendre plusieurs minutes.
+
+. Sélectionnez *GÉNÉRER* pour générer les fichiers journaux.
+. Saisissez le libellé du lot de journaux et sélectionnez *GENERATE*.
++
+Téléchargez le fichier tar.gz et envoyez-le au support technique.
+
+

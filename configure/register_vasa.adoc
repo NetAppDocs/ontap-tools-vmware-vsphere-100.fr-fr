@@ -1,0 +1,39 @@
+---
+permalink: configure/register_vasa.html 
+sidebar: sidebar 
+keywords:  
+summary: 'Vous pouvez enregistrer VASA Provide dans vCenter à l"aide d"un certificat auto-signé ou d"un certificat signé par une autorité de certification. Le certificat auto-signé est généré à l"aide de la poignée de main VMware CA.' 
+---
+= Enregistrez VASA Provider dans vCenter
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vous pouvez enregistrer VASA Provide dans vCenter à l'aide d'un certificat auto-signé ou d'un certificat signé par une autorité de certification. Le certificat auto-signé est généré à l'aide de la poignée de main VMware CA.
+
+*À propos de cette tâche*
+
+Vous devez placer le certificat signé par l'autorité de certification dans vCenter lorsque vous utilisez la méthode de certificat signé par l'autorité de certification.
+
+*Étapes*
+
+. Accédez au serveur vCenter.
+. Sélectionnez *configurer* > *fournisseurs de stockage*.
+. Cliquez sur l'icône *Ajouter*.
+. Entrez les informations de connexion du fournisseur de stockage :
++
+.. Nom : tout nom convivial comme « ScaleoutVP »
+.. URL : `\https://<name>/virtualization/version.xml` - Le nom dans l'URL correspond à l'adresse IP virtuelle fournie lors du déploiement d'OVA pour le déploiement d'un seul vCenter (ou) Nom de domaine pour les déploiements multi-vCenter. Ajoutez les certificats à l'URL. Les mêmes certificats sont publiés dans vCenter.
+.. Informations d'identification : <nom d'utilisateur du fournisseur VASA>/< mot de passe du fournisseur VASA> fourni lors du déploiement d'OVA.
+
+
+. Une fois le fichier VASA enregistré, cliquez sur *OK*.
+Assurez-vous qu'il est répertorié sous fournisseur de stockage et que l'état est en ligne.
++
+Si vous avez placé un certificat signé par l'autorité de certification dans vCenter, l'enregistrement VASA se poursuit avec le certificat signé par l'autorité de certification. Sinon, la liaison échoue et l'enregistrement est par défaut sur le certificat SSA.
+
+. Vous pouvez enregistrer plusieurs vCenters dans une seule instance vp scaleout.
+Répétez les étapes mentionnées ci-dessus pour enregistrer plusieurs vCenters.
+

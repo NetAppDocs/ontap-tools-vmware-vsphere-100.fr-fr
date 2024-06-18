@@ -1,0 +1,33 @@
+---
+permalink: configure/ontap_tools_manager_ui.html 
+sidebar: sidebar 
+keywords: ontap tools manager, managerui 
+summary: 'ONTAP Tools Manager offre davantage de contrôle et d"alimentation à l"administrateur des outils ONTAP, ce qui facilite la gestion globale de l"appliance, des locataires et des systèmes back-end de stockage.' 
+---
+= Interface utilisateur du gestionnaire d'outils ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Les outils ONTAP pour VMware vSphere 10.0 sont un système mutualisé qui gère plusieurs vCenter. Un administrateur a besoin de davantage de contrôle sur les vCenter gérés et les systèmes back-end de stockage intégrés.
+
+ONTAP Tools Manager offre davantage de contrôle et d'alimentation à l'administrateur des outils ONTAP, ce qui facilite la gestion globale de l'appliance, des locataires et des systèmes back-end de stockage.
+
+Les outils ONTAP effectuent les opérations suivantes :
+
+* Gestion vCenter : enregistrez et désenregistrez des vCenters vers les outils ONTAP
+* Gestion du stockage back-end : enregistrez et désenregistrez les clusters de stockage ONTAP dans les outils ONTAP et mappez-les vers des vCenters intégrés à l'échelle mondiale.
++
+Le système back-end est global lorsqu'il est ajouté à partir du gestionnaire d'outils ONTAP ou des API communes, et il est local lorsqu'il est ajouté à partir des API vCenter.
+Exemple : pour une configuration mutualisée, vous pouvez ajouter le système back-end de stockage (cluster) globalement et un SVM localement pour utiliser les identifiants directs du SVM.
+
+* Téléchargements de lots de journaux
+
+
+Pour accéder à l'interface utilisateur des outils ONTAP, lancez `\https://loadBalanceIP:8443/virtualization/ui/` Depuis le navigateur et connectez-vous avec les informations d'identification de l'administrateur des outils ONTAP fournies lors du déploiement.
+
+image::../media/ontap_tools_manager.png[Interface du gestionnaire d'outils ONTAP]
+
+Vous pouvez sélectionner l'option *ne plus afficher* pour ne pas voir cette fenêtre contextuelle lorsque vous vous connectez à nouveau à partir du même navigateur.

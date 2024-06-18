@@ -1,0 +1,30 @@
+---
+permalink: configure/add_storage_backend.html 
+sidebar: sidebar 
+keywords:  
+summary: Les systèmes back-end de stockage sont des systèmes que les hôtes EXSi utilisent pour le stockage des données. 
+---
+= Ajout du système back-end de stockage
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Les systèmes back-end de stockage sont des systèmes que les hôtes EXSi utilisent pour le stockage des données.
+
+*À propos de cette tâche*
+
+Cette tâche vous permet d'instruments d'instruments ONTAP.
+
+*Étapes*
+
+. Lancement `\https://loadBalanceIP:8443/virtualization/ui/` À partir d'un navigateur avec les informations d'identification de l'administrateur des outils ONTAP fournies pendant le déploiement.
+. Sélectionnez *systèmes back-end de stockage* dans la barre latérale.
+. Sélectionnez *Ajouter*.
+. Indiquez l'adresse IP du serveur ou le nom de domaine complet, le nom d'utilisateur et le mot de passe, puis sélectionnez *Ajouter*.
++
+
+NOTE: Seules les LIF de gestion IPV4 sont prises en charge.
+
+

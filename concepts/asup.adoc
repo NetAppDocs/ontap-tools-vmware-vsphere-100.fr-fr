@@ -1,0 +1,19 @@
+---
+permalink: concepts/asup.html 
+sidebar: sidebar 
+keywords:  
+summary: 'AutoSupport est un mécanisme qui surveille de manière proactive l"état de votre système et envoie automatiquement des messages au support technique NetApp, à votre organisation de support interne et à un partenaire de support. Bien que les messages AutoSupport au support technique soient activés par défaut, vous devez définir les options correctes et disposer d"un hôte de messagerie valide pour que les messages soient envoyés à votre service de support interne.' 
+---
+= AutoSupport
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+AutoSupport est un mécanisme qui surveille de manière proactive l'état de votre système et envoie automatiquement des messages au support technique NetApp, à votre organisation de support interne et à un partenaire de support.
+
+L'option AutoSupport est activée par défaut lorsque vous configurez votre système de stockage pour la première fois. L'AutoSupport envoie des messages au support technique sous 24 heures après l'activation de AutoSupport.
+
+Vous ne pouvez activer ou désactiver AutoSupport qu'au moment du déploiement. Il est recommandé de le laisser activé. L'activation d'AutoSupport peut considérablement accélérer l'identification et la résolution des problèmes sur votre système de stockage. Par défaut, le système collecte les informations AutoSupport et les stocke localement, même si vous désactivez AutoSupport.
+Pour une transmission réussie, vous devez utiliser la liste blanche 216.240.21.18 // support.netapp.com URL dans votre réseau.

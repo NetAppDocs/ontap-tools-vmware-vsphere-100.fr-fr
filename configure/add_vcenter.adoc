@@ -1,0 +1,27 @@
+---
+permalink: configure/add_vcenter.html 
+sidebar: sidebar 
+keywords:  
+summary: 'Les vCenter sont des plateformes de gestion centrales qui vous permettent de contrôler les hôtes, les machines virtuelles (VM) et les systèmes back-end de stockage.' 
+---
+= Ajoutez vCenter
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Les vCenter sont des plateformes de gestion centrales qui vous permettent de contrôler les hôtes, les machines virtuelles (VM) et les systèmes back-end de stockage.
+
+*À propos de cette tâche*
+
+Vous pouvez ajouter et gérer plusieurs instances vCenter 10.0 à l'aide d'une seule instance d'outils ONTAP.
+
+*Étapes*
+
+. Lancement `\https://loadBalanceIP:8443/virtualization/ui/` À partir d'un navigateur avec les informations d'identification de l'administrateur des outils ONTAP fournies pendant le déploiement.
+. Sélectionnez vCenters dans la barre latérale
+. Sélectionnez *ADD* pour intégrer les vCenters avec l'adresse IP/le nom d'hôte vCenter, le nom d'utilisateur, le mot de passe et le port.
+
+
+Voir link:../configure/task_configure_user_role_and_privileges.html["Liste des privilèges minimaux requis pour les utilisateurs du cluster dont le périmètre global n'est pas défini sur admin"].

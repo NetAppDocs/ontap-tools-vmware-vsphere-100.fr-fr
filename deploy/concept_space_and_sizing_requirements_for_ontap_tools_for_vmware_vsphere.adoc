@@ -1,0 +1,112 @@
+---
+permalink: deploy/concept_space_and_sizing_requirements_for_ontap_tools_for_vmware_vsphere.html 
+sidebar: sidebar 
+keywords: ONTAP tools,Storage Replication Adapter 
+summary: Avant de déployer les outils ONTAP pour VMware vSphere, vous devez connaître les besoins en espace requis pour le package de déploiement et la configuration système hôte de base requise. 
+---
+= Conditions requises pour le déploiement des outils ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Avant de déployer les outils ONTAP pour VMware vSphere, vous devez connaître les besoins en espace requis pour le package de déploiement et la configuration système hôte de base requise.
+
+Vous pouvez utiliser les outils ONTAP avec un serveur Windows vCenter Server ou avec une appliance virtuelle VMware vCenter Server (vCSA). Vous devez déployer les outils ONTAP sur un système vSphere pris en charge qui inclut VMware ESXi.
+
+* *Espace requis pour le package d'installation par nœud*
++
+** 10 Go pour les installations à provisionnement fin
+** 200 Go pour les installations à provisionnement lourd
+
+
+* *Exigences de dimensionnement du système hôte par nœud*
+La mémoire recommandée par taille de déploiement et par nœud est indiquée dans le tableau ci-dessous :
+
+
+|===
+
+
+| Type de déploiement | Processeurs | Mémoire (Go) 
+
+
+| Petit (S) | 8 | 16 
+
+
+| Moyen (M) | 12 | 24 
+
+
+| Grand (L) | 16 | 32 
+|===
+
+
+== Exigences minimales en matière de stockage et d'applications :
+
+|===
+| Stockage, hôte et applications | Exigences de version 
+
+
+| ONTAP | ONTAP 9.10.1 , 9.11 , 9.12 et 9.13 
+
+
+| VMware vSphere | La version VMware minimale prise en charge est la version 7.0.3. 
+
+
+| Hôtes ESXi | ESXi 7.0.3 ou version ultérieure 
+
+
+| Serveur vCenter | VCenter 7.0.3 
+
+
+| Fournisseur VASA | 3.0 
+
+
+| Application OVA | 10.0 
+|===
+La matrice d'interopérabilité (IMT) contient les dernières informations sur les versions prises en charge de ONTAP, de vCenter Server, d'hôtes ESXi et d'applications de plug-in.
+
+https://imt.netapp.com/matrix/imt.jsp?components=105475;&solution=1777&isHWU&src=IMT["Matrice d'interopérabilité"^]
+
+
+
+== Autres considérations relatives au déploiement
+
+Vous devez tenir compte de quelques exigences tout en personnalisant les outils ONTAP de déploiement.
+
+
+
+=== Mot de passe utilisateur de l'application
+
+Il s'agit du mot de passe attribué au compte administrateur. Pour des raisons de sécurité, il est recommandé que la longueur du mot de passe soit comprise entre huit et trente caractères et qu'elle contienne au moins un caractère supérieur, un chiffre inférieur, un chiffre et un caractère spécial. Le mot de passe expire après 90 jours.
+
+
+
+=== Identifiants de la console de maintenance de l'appliance
+
+Vous devez accéder à la console de maintenance en utilisant le nom d'utilisateur "maaint". Vous pouvez définir le mot de passe pour l'utilisateur "saint" pendant le déploiement. Vous pouvez utiliser le menu Configuration de l'application de la console de maintenance de vos outils ONTAP pour modifier le mot de passe.
+
+
+
+=== Adresse IP du serveur vCenter
+
+* Vous devez fournir l'adresse IP (IPv4) de l'instance du serveur vCenter à laquelle vous souhaitez enregistrer les outils ONTAP.
++
+Le type d'outils ONTAP et de certificats VASA générés dépend de l'adresse IP (IPv4) que vous avez fournie lors du déploiement.
+
+* L'adresse IP des outils ONTAP utilisée pour l'enregistrement auprès de vCenter Server dépend du type d'adresse IP (IPv4) du serveur vCenter saisi dans l'assistant de déploiement.
++
+Les outils ONTAP et les certificats VASA sont générés à l'aide du même type d'adresse IP que celui utilisé lors de l'enregistrement du serveur vCenter.
+
+* Assurez-vous que les machines virtuelles ne sont pas migrées lors de l'installation.
++
+
+NOTE: IPv6 n'est pas pris en charge dans les outils ONTAP pour VMware vSphere 10.0.
+
+
+
+
+
+=== Propriétés du réseau de l'appliance
+
+Spécifiez un nom d'hôte DNS valide (non qualifié) ainsi que l'adresse IP statique des outils ONTAP et des autres paramètres réseau. DHCP n'est pas pris en charge dans les outils ONTAP pour VMware vSphere version 10.0. Tous ces paramètres sont nécessaires pour une installation et un fonctionnement corrects.

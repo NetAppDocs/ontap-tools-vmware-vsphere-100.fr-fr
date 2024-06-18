@@ -1,0 +1,69 @@
+---
+permalink: deploy/prepare_deployment.html 
+sidebar: sidebar 
+keywords:  
+summary: 'Vous devez déployer les outils ONTAP dans votre environnement et spécifier les paramètres requis pour pouvoir utiliser l"appliance.' 
+---
+= Préparez-vous à déployer les outils ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Les outils ONTAP pour VMware vSphere prennent en charge plusieurs vCenter Server, y compris VASA Provider.
+
+Avant de commencer à déployer les outils ONTAP pour VMware vSphere, vous devez connaître les exigences de base en matière de stockage back-end, les exigences des applications et les licences.
+Avant de déployer les outils ONTAP pour VMware vSphere, il est conseillé de planifier votre déploiement et de choisir comment configurer les outils ONTAP dans votre environnement.
+
+
+
+== Préparation du déploiement
+
+Voici la configuration requise pour les outils ONTAP avant de procéder au déploiement :
+
+* Configurez et configurez votre environnement vCenter Server.
+* Téléchargez le fichier _.ova_.
+* Assurez-vous que l'hôte ou le pool de ressources sur lequel l'OVA est déployé dispose des ressources minimales mentionnées dans la section *Configuration requise pour le déploiement des outils ONTAP*.
+* Supprimez le cache du navigateur.
+* Vous avez besoin de deux adresses IP virtuelles pour Load Balancer et Kubernetes API Server. Obtenez deux adresses IP gratuites dans le VLAN, utilisé pour le déploiement, qui est utilisé pour accéder aux services après le déploiement.
+* Obtenez les certificats CA (certificats racine, feuille et intermédiaire) auprès de l'autorité de certification commerciale.
+* Dans le cas d'un déploiement multi-vCenter où les certificats d'autorité de certification personnalisée sont obligatoires, mappez le *Nom de domaine* sur lequel le certificat est émis sur *Virtual IP*. Effectuez une vérification ping sur le nom de domaine pour vérifier si le domaine est résolu sur l'adresse IP prévue.
+* Une machine virtuelle de stockage sur ONTAP avec NFS activé est requise. Pour configurer la machine virtuelle de stockage, procédez comme suit :
++
+** Ouvrez à la fois votre gestionnaire système ONTAP et votre interface de ligne de commande ONTAP.
+** Si vous préférez créer une machine virtuelle de stockage, connectez-vous à ONTAP System Manager et créez une machine virtuelle de stockage avec NFS activé.
+** Ajouter un agrégat d'au moins 100 Go.
+** Pour vérifier si l'agrégat est correctement ajouté :
++
+A) Connectez-vous à votre interface de ligne de commande ONTAP
+
++
+b) exécutez la commande vserver show -fields aggr-list
+
++
+c) si votre agrégat n'a pas été répertorié par rapport à votre VM de stockage par défaut, exécutez la commande : vserver modify <nom du VM de stockage> -aggr-list <aggregate name>
+
++
+Pour trouver le nom de l'agrégat à ajouter à votre VM de stockage par défaut, vous pouvez utiliser la commande suivante dans l'interface de ligne de commande de ONTAP : _aggr show_
+
++
+Cette commande affiche la liste des agrégats du système de stockage et vous trouverez le nom de l'agrégat à utiliser dans la colonne *aggregate*.
+
+** Il existe deux options avec la configuration du déploiement, l'une avec les informations d'identification du cluster et l'autre avec les informations d'identification du SVM ou directement SVM. Pour les SVM directs, vous devez configurer la LIF de gestion pour le SVM avant de démarrer le déploiement. Ignorez cette étape pour les informations d'identification du cluster.
+** Vérifiez que la route réseau existe, connectez-vous à votre interface de ligne de commande ONTAP et exécutez la commande network route show -vserver <nom de la VM de stockage>
++
+S'il n'existe pas, connectez-vous à votre interface de ligne de commande ONTAP et exécutez les commandes suivantes, net route create -vserver <vserver name> -destination <destination IP> -Gateway <gateway IP> -metric 20
+
+** Assurez-vous qu'une règle d'export existe pour la machine virtuelle de stockage. Sur votre Gestionnaire système ONTAP, accédez à *stockage* > *machines virtuelles de stockage* > *[nom de la machine virtuelle de stockage]* > *Paramètres* > *règles d'exportation*. Si aucune export-policy n'est disponible, suivez l'étape suivante.
+** Créez une règle d'export-policy en utilisant les commandes suivantes depuis l'interface de ligne de commandes de ONTAP
++
+Vserver export-policy rule create -vserver <nom de la VM de stockage> -policyname <nom de la règle d'export> -clientmatch <ESXI-IP> -rorule any -rwrule any -superuser any
+
++
+
+NOTE: Assurez-vous que la valeur _superuser_ n'est pas _none_.
+
+
+
+

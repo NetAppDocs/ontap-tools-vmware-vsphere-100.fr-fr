@@ -1,0 +1,28 @@
+---
+permalink: manage/igroup_management.html 
+sidebar: sidebar 
+keywords:  
+summary: 'Dans ONTAP, des règles d"exportation sont utilisées pour fournir un accès aux chemins d"accès aux données des volumes aux hôtes et les groupes initiateurs sont utilisés pour fournir un accès aux chemins d"accès aux données des LUN aux hôtes ESXi.' 
+---
+= IGroup géré et règles d'exportation
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dans ONTAP, les règles d'export sont utilisées pour fournir un accès aux données du volume aux hôtes, et les groupes initiateurs (igroups) sont utilisés pour fournir un accès aux données de numéro d'unité logique (LUN) aux hôtes ESXi.
+
+Lorsque des datastores de volumes virtuels sont créés ou montés sur des hôtes dans vCenter, ces hôtes doivent avoir accès aux volumes (NFS) ou aux LUN (iSCSI) selon le type de protocole du datastore.
+
+La export policy est dynamique et la nouvelle export policy est créée au format trident-uuid. Dans votre Gestionnaire système ONTAP, accédez à *stockage* > *machines virtuelles de stockage* > *[nom de la machine virtuelle de stockage]* > *Paramètres* > *règles d'exportation* pour afficher la stratégie d'exportation.
+
+Les igroups et les règles d'exportation dans les outils ONTAP sont gérés de manière efficace et offrent les avantages suivants :
+
+* Prend en charge les groupes initiateurs et les règles d'exportation migrés.
+* Aucune interruption des opérations d'entrée et de sortie de l'ordinateur virtuel.
+* Prend en charge le montage sur des hôtes supplémentaires sans intervention manuelle.
+* Réduit le besoin de gérer le nombre de groupes initiateurs et de règles d'exportation.
+* Un Garbage Collector supprime automatiquement tous les igroups gérés inutilisés et les règles d'exportation périodiquement.
+* Si le datastore est provisionné au niveau du cluster hôte, igroup est créé avec tous les initiateurs hôtes du cluster hôte qui sont ajoutés au groupe initiateur.
+

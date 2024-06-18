@@ -1,0 +1,118 @@
+---
+permalink: manage/manage_vcenter.html 
+sidebar: sidebar 
+keywords:  
+summary: Les vCenter sont des plateformes de gestion centralisée qui vous permettent de contrôler les hôtes, les machines virtuelles et les systèmes back-end de stockage. 
+---
+= Gestion de vCenter
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Les vCenter sont des plateformes de gestion centralisée qui vous permettent de contrôler les hôtes, les machines virtuelles et les systèmes back-end de stockage.
+
+
+
+== Ajoutez vCenter
+
+Vous pouvez ajouter et gérer plusieurs instances vCenter 10.0 à l'aide d'une seule instance d'outils ONTAP.
+
+*Étapes*
+
+. Lancement `\https://loadBalanceIP:8443/virtualization/ui/` À partir d'un navigateur avec les informations d'identification de l'administrateur des outils ONTAP fournies pendant le déploiement.
+. Sélectionnez vCenters dans la barre latérale
+. Sélectionnez *ADD* pour intégrer les vCenters avec l'adresse IP/le nom d'hôte vCenter, le nom d'utilisateur, le mot de passe et le port.
+. Naviguez jusqu'à la page *Storage Backend* et sélectionnez *Ajouter au système de stockage interne* (cluster ONTAP) avec le nom d'hôte, le nom d'utilisateur, le mot de passe et le port.
+
+
+Voir link:../configure/task_configure_user_role_and_privileges.html["Liste des privilèges minimaux requis pour les utilisateurs du cluster dont le périmètre global n'est pas défini sur admin"].
+
+
+
+== Associer ou dissocier le système back-end de stockage avec vCenter
+
+La page de liste vCenter affiche le nombre de systèmes back-end de stockage associés. Chaque vCenter a la possibilité d'associer ou de dissocier un système back-end de stockage
+Cette tâche vous permet de créer un mappage entre le système back-end de stockage et vCenter intégré à l'échelle mondiale.
+
+*Étapes*
+
+. Lancement `\https://loadBalanceIP:8443/virtualization/ui/` À partir d'un navigateur avec les informations d'identification de l'administrateur des outils ONTAP fournies pendant le déploiement.
+. Sélectionnez vCenters dans la barre latérale.
+. Cliquez sur les points de suspension verticaux en regard du vCenter que vous souhaitez associer ou dissocier avec les systèmes back-end de stockage.
+. Sélectionnez *associer ou dissocier le backend de stockage* en fonction de l'action que vous souhaitez effectuer.
++
+Voir link:../configure/task_configure_user_role_and_privileges.html["Liste des privilèges minimaux requis pour les utilisateurs du cluster dont le périmètre global n'est pas défini sur admin"].
+
+
+
+
+
+== Modifier vCenter
+
+Suivez les étapes ci-dessous pour modifier les vCenters.
+
+. Lancement `\https://loadBalanceIP:8443/virtualization/ui/` À partir d'un navigateur avec les informations d'identification de l'administrateur des outils ONTAP fournies pendant le déploiement.
+. Sélectionnez vCenters dans la barre latérale
+. Cliquez sur les points de suspension verticaux en regard du vCenter que vous souhaitez modifier et sélectionnez *Modifier*.
+. Modifiez les détails du vCenter et sélectionnez *Modifier*.
+
+
+
+
+== Supprimez vCenter
+
+Vous devez supprimer tous les systèmes back-end associés à vCenter avant de les supprimer.
+
+. Lancement `\https://loadBalanceIP:8443/virtualization/ui/` À partir d'un navigateur avec les informations d'identification de l'administrateur des outils ONTAP fournies pendant le déploiement.
+. Sélectionnez vCenters dans la barre latérale
+. Cliquez sur les points de suspension verticaux en regard du vCenter que vous souhaitez supprimer et sélectionnez *Supprimer*.
++
+
+NOTE: Une fois que vous avez supprimé vCenter, il ne sera plus géré par l'application.
+
+
+
+
+
+== Seuil de gestion du stockage
+
+Utilisez l'API de seuil GET suivante pour récupérer les limites de seuil de stockage configurées pour le volume et l'agrégat.
+
+[listing]
+----
+GET​/virtualization​/api​/v1​/vcenters​/{vcguid}​/storage-thresholds
+----
+Exemples :
+Obtenez les seuils de stockage par vcenter par identifiant de serveur vcenter
+
+[listing]
+----
+GET "/api/v1/vcenters/beded9ad-6bbb-4c9e-b4c6-691250bfe2da/storage-thresholds"
+----
+Utilisez l'alarme de configuration de CORRECTIF suivante pour le volume et l'agrégat pour générer une notification lorsque les limites de seuil configurées sont atteintes.
+
+[listing]
+----
+PATCH​/virtualization​/api​/v1​/vcenters​/{vcguid}​/storage-thresholds
+----
+Exemples :
+Mettez à jour les seuils de stockage par vcenter en fonction de l'ID de vcenter. Les limites par défaut sont de 80 % pour presque plein et de 90 % pour pleine.
+Modification de tous les paramètres de seuil
+
+[listing]
+----
+{{{}PATCH "/api/v1/vcenters/beded9ad-6bbb-4c9e-b4c6-691250bfe2da/storage-thresholds"
+Request Body
+{
+"volume":
+
+{ "nearly_full_percent": 80, "full_percent": 90 }
+,
+"aggregate": {
+"nearly_full_percent": 80,
+"full_percent": 90
+}
+}{}}}{}
+----

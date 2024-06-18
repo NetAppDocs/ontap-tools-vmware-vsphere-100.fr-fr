@@ -1,0 +1,143 @@
+---
+permalink: configure/task_configure_user_role_and_privileges.html 
+sidebar: sidebar 
+keywords: user roles 
+summary: 'Vous pouvez configurer de nouveaux rôles utilisateur pour la gestion des systèmes back-end de stockage à l"aide du fichier JSON fourni par les outils ONTAP et par ONTAP System Manager.' 
+---
+= Configurez les rôles et privilèges utilisateur
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vous pouvez configurer de nouveaux rôles et privilèges utilisateur pour la gestion des systèmes back-end de stockage à l'aide du fichier JSON fourni avec les outils ONTAP et ONTAP System Manager.
+
+*Ce dont vous aurez besoin*
+
+* Vous devez avoir téléchargé le fichier privilèges ONTAP à partir des outils ONTAP à l'aide de `\https://<loadbalancerIP>:8443/virtualization/user-privileges/users_roles.zip`.
++
+
+NOTE: La création d'utilisateurs s'effectue au niveau du cluster ou des serveurs virtuels de stockage directs (SVM). Vous pouvez également créer des utilisateurs sans utiliser le fichier user_roles.json et, si c'est le cas, vous devez disposer d'un ensemble minimal de privilèges au niveau du SVM.
+
+* Vous devez vous être connecté avec des privilèges d'administrateur pour le back-end de stockage.
+
+
+*Étapes*
+
+. Extrayez le téléchargé `\https://<loadbalancerIP>:8443/virtualization/user-privileges/users_roles.zip` fichier.
+. Accédez à ONTAP System Manager. Pour accéder à ONTAP System Manager, utilisez l'IP de gestion du cluster du cluster.
+. Se connecter en tant qu'utilisateur du cluster ou du SVM.
+. Sélectionnez *CLUSTER* > *Paramètres* > volet *utilisateurs et rôles*.
+. Sélectionnez *Ajouter* sous utilisateurs.
+. Dans la boîte de dialogue *Ajouter un utilisateur*, sélectionnez *produits de virtualisation*.
+. Sélectionnez *Parcourir* pour sélectionner et télécharger le fichier JSON de privilèges ONTAP.
++
+Le champ PRODUIT est rempli automatiquement.
+
+. Sélectionnez la fonctionnalité requise dans le menu déroulant FONCTIONNALITÉS DU PRODUIT.
++
+Le champ *ROLE* est renseigné automatiquement en fonction de la capacité du produit sélectionnée.
+
+. Saisissez le nom d'utilisateur et le mot de passe requis.
+. Sélectionnez les privilèges (découverte, création de stockage, modification de stockage, destruction de stockage, rôle NAS/SAN) requis pour l'utilisateur, puis cliquez sur *Ajouter*.
+
+
+Le nouveau rôle et l'utilisateur sont ajoutés et vous pouvez voir les privilèges détaillés sous le rôle que vous avez configuré.
+
+
+NOTE: L'opération de désinstallation ne supprime pas les rôles d'outil ONTAP, mais supprime les noms localisés des privilèges spécifiques à l'outil ONTAP et ajoute le préfixe `XXX missing privilege` pour eux. Lorsque vous réinstallez les outils ONTAP ou que vous effectuez une mise à niveau vers une version plus récente des outils ONTAP, tous les rôles d'outils ONTAP standard et les privilèges spécifiques aux outils ONTAP sont restaurés.
+
+
+
+== Exigences de mappage des agrégats du SVM
+
+Pour utiliser les identifiants de SVM directs pour le provisionnement des datastores, les outils ONTAP internes créent des volumes sur l'agrégat spécifié dans l'API POST DES datastores. La ONTAP ne permet pas la création de volumes sur des agrégats non mappés sur un SVM utilisant des informations d'identification SVM directes. Pour résoudre ce problème, vous devez mapper les SVM avec les agrégats à l'aide de l'API REST ou de l'interface de ligne de commandes comme décrit dans cette section.
+
+API REST :
+
+[listing]
+----
+PATCH "/api/svm/svms/f16f0935-5281-11e8-b94d-005056b46485" '{"aggregates":{"name":["aggr1","aggr2","aggr3"]}}'
+----
+Interface de ligne de commande ONTAP :
+
+[listing]
+----
+sti115_vsim_ucs630f_aggr1 vserver show-aggregates                                        AvailableVserver        Aggregate      State         Size Type    SnapLock Type-------------- -------------- ------- ---------- ------- --------------svm_test       sti115_vsim_ucs630f_aggr1                               online     10.11GB vmdisk  non-snaplock
+----
+
+
+== Créez manuellement un utilisateur et un rôle ONTAP
+
+Suivez les instructions de cette section pour créer l'utilisateur et les rôles manuellement sans utiliser le fichier JSON.
+
+. Accédez à ONTAP System Manager. Pour accéder à ONTAP System Manager, utilisez l'IP de gestion du cluster du cluster.
+. Se connecter en tant qu'utilisateur du cluster ou du SVM.
+. Sélectionnez *CLUSTER* > *Paramètres* > volet *utilisateurs et rôles*.
+. Créer des rôles :
++
+.. Sélectionnez *Ajouter* dans la table *rôles*.
+.. Entrez les détails *NOM DE RÔLE* et *attributs de rôle*.
++
+Ajoutez le CHEMIN *REST API PATH* et l'accès correspondant dans le menu déroulant.
+
+.. Ajoutez toutes les API nécessaires et enregistrez les modifications.
+
+
+. Créer des utilisateurs :
++
+.. Sélectionnez *Ajouter* dans la table *utilisateurs*.
+.. Dans la boîte de dialogue *Ajouter un utilisateur*, sélectionnez *System Manager*.
+.. Entrez le *NOM D'UTILISATEUR*.
+.. Sélectionnez *ROLE* parmi les options créées à l'étape *Create Roles* ci-dessus.
+.. Entrez les applications à laquelle vous souhaitez accorder l'accès et la méthode d'authentification. ONTAPI et HTTP sont l'application requise et le type d'authentification est *Password*.
+.. Définissez le *Mot de passe pour l'utilisateur* et le *Enregistrer* pour l'utilisateur.
+
+
+
+
+
+
+== Liste des privilèges minimaux requis pour les utilisateurs du cluster dont le périmètre global n'est pas défini sur admin
+
+Les privilèges minimaux requis pour l'utilisateur de cluster avec périmètre global non-admin créé sans utiliser le fichier JSON d'utilisateurs sont répertoriés dans cette section.
+Si un cluster est ajouté au périmètre local, il est recommandé d'utiliser le fichier JSON pour créer les utilisateurs, car les outils ONTAP requièrent bien plus que les privilèges de lecture pour le provisionnement sur ONTAP.
+
+À l'aide d'API :
+
+|===
+
+
+| API | NIVEAU D'ACCÈS | UTILISÉ POUR 
+
+
+| /api/cluster | Lecture seule | Découverte de la configuration du cluster 
+
+
+| /api/cluster/licences/licences | Lecture seule | Contrôle de licence pour les licences spécifiques au protocole 
+
+
+| /api/cluster/nœuds | Lecture seule | Découverte du type de plate-forme 
+
+
+| /api/stockage/agrégats | Lecture seule | Vérification de l'espace de l'agrégat lors du provisionnement des datastores/volumes 
+
+
+| /api/stockage/cluster | Lecture seule | Pour obtenir les données d'espace et d'efficacité au niveau du cluster 
+
+
+| /api/stockage/disques | Lecture seule | Pour obtenir les disques associés dans un agrégat 
+
+
+| /api/stockage/qos/politiques | Lire/Créer/Modifier | Gestion de la QoS et de la stratégie des machines virtuelles 
+
+
+| /api/svm/svm | Lecture seule | Pour obtenir la configuration du SVM en cas d'ajout local du Cluster. 
+
+
+| /api/network/ip/interfaces | Lecture seule | Add Storage back-end : pour identifier le périmètre de la LIF de gestion, il s'agit de Cluster/SVM 
+
+
+| /api | Lecture seule | L'utilisateur du cluster doit disposer de ce privilège pour obtenir l'état du back-end de stockage correct. Sinon, l'interface utilisateur du gestionnaire des outils ONTAP affiche l'état du back-end de stockage « inconnu ». 
+|===

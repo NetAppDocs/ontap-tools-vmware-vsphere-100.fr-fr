@@ -1,0 +1,112 @@
+---
+sidebar: sidebar 
+permalink: deploy/qsg_10.html 
+keywords: QSG, ONTAP tools for VMware vSphere, Quick start guide, Installing 
+summary: 'Le fournit des instructions sur le déploiement et l"initialisation des outils ONTAP pour VMware vSphere.' 
+---
+= Aide à la vente des outils ONTAP pour VMware vSphere
+:hardbreaks:
+:toclevels: 1
+:allow-uri-read: 
+:toclevels: 1
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Les outils ONTAP pour VMware vSphere sont un plug-in vCenter Server unique qui inclut des outils ONTAP et des extensions VASA Provider. Les outils ONTAP sont recommandés pour tous les environnements ONTAP vSphere lors de la configuration des paramètres des hôtes ESXi et du provisionnement du stockage ONTAP selon les meilleures pratiques. Le fournisseur VASA est requis pour la prise en charge des volumes virtuels (vVols).
+
+
+
+== Préparation de l'installation
+
+Vous déployez le plug-in en tant qu'appliance virtuelle, ce qui vous permet de réduire les efforts d'installation et d'enregistrement de chaque produit séparément auprès de vCenter Server.
+
+
+
+=== De déploiement
+
+Avant de déployer les outils ONTAP pour VMware vSphere, vous devez vous familiariser avec les exigences en termes d'espace pour le package de déploiement et avec certaines exigences de base en matière de système hôte.
+
+Vous pouvez utiliser les outils ONTAP avec un serveur Windows vCenter ou avec un serveur virtuel VMware vCenter Server (vCSA). Vous devez déployer les outils ONTAP sur un système vSphere pris en charge qui inclut VMware ESXi.
+
+* *Espace requis pour le package d'installation par nœud*
++
+** 10 Go pour les installations à provisionnement fin
+** 200 Go pour les installations à provisionnement lourd
+
+
+* *Exigences de dimensionnement du système hôte par nœud*
+La mémoire recommandée par taille de déploiement et par nœud est indiquée dans le tableau ci-dessous :
+
+
+|===
+
+
+| Type de déploiement | Processeurs | Mémoire (Go) 
+
+
+| Petit (S) | 8 | 16 
+
+
+| Moyen (M) | 12 | 24 
+
+
+| Grand (L) | 16 | 32 
+|===
+
+
+== Exigences minimales en matière de stockage et d'applications :
+
+|===
+| Stockage, hôte et applications | Exigences de version 
+
+
+| ONTAP | ONTAP 9.10.1 , 9.11 , 9.12 et 9.13 
+
+
+| VMware vSphere | La version VMware minimale prise en charge est la version 7.0.3. 
+
+
+| Hôtes ESXi | ESXi 7.0.3 ou version ultérieure 
+
+
+| Serveur vCenter | VCenter 7.0.3 
+
+
+| Fournisseur VASA | 3.0 
+
+
+| Application OVA | 10.0 
+|===
+Pour plus d'informations, voir link:../deploy/concept_space_and_sizing_requirements_for_ontap_tools_for_vmware_vsphere.html["Conditions requises pour le déploiement des outils ONTAP"]
+
+
+
+=== Configuration minimale requise pour les outils ONTAP
+
+* Configurez et configurez votre environnement vCenter Server.
+* Téléchargez le fichier .ova.
+* Les informations d'identification de votre instance de vCenter Server.
+* Supprimez le cache du navigateur pour éviter tout problème de cache du navigateur pendant le déploiement des outils ONTAP.
+* Configurez la passerelle par défaut à utiliser par l'appliance virtuelle pour répondre aux requêtes ping ICMP.
+* Nom d'hôte DNS valide pour l'appliance virtuelle.
+
+
+
+
+== Déploiement des outils ONTAP
+
+.Étapes
+. Télécharger `.zip` fichier contenant des binaires et des certificats signés à partir du https://mysupport.netapp.com/site/products/all/details/otv/downloads-tab["Site de support NetApp"^] Sur un système vSphere client pour déployer les outils ONTAP.
+. Extraire le `.zip` et déployez le `.ova` fichier.
+. Connectez-vous au serveur vSphere.
+. Accédez au pool de ressources ou à l'hôte sur lequel vous souhaitez déployer l'OVA.
+. Cliquez avec le bouton droit de la souris sur le centre de données requis et sélectionnez *déployer le modèle OVF...*.
+. Vous pouvez entrer l'URL du fichier .ova ou naviguer jusqu'au dossier dans lequel le fichier .ova est enregistré, puis sélectionner *Suivant*.
+. Entrez les informations requises pour terminer le déploiement.
+
+
+Vous pouvez afficher la progression du déploiement dans l'onglet tâches et attendre la fin du déploiement.

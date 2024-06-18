@@ -1,0 +1,46 @@
+---
+permalink: manage/discovery.html 
+sidebar: sidebar 
+keywords:  
+summary: 'L"intervalle de découverte peut être configuré dans le cadre de la carte de configuration.' 
+---
+= Détection
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+L'intervalle de découverte peut être configuré dans le cadre de la carte de configuration. La découverte planifiée s'exécute toutes les 60 minutes. L'API fournie ici consiste à exécuter la découverte à la demande pour un système back-end de stockage donné, qui est ajouté au périmètre local.
+
+Utilisez l'API suivante pour exécuter la découverte :
+
+[listing]
+----
+POST
+/virtualization/api/v1/vcenters/{vcguid}/storage-backends/{id}/discovery-jobs
+----
+[NOTE]
+====
+Voir link:../configure/onboard_svm.html["Systèmes back-end de stockage intégrés (SVM ou cluster)"] Section et ID GET de la réponse de l'API back-end de post-stockage.
+
+====
+La découverte à partir de ce terminal d'API n'est prise en charge que pour les systèmes back-end de stockage périmètre local, et non pour les systèmes back-end de stockage périmètre global.
+Si le type de système back-end de stockage est cluster, la détection s'exécute implicitement pour les svm enfants.
+Si le type de système back-end de stockage est svm, la découverte s'exécute uniquement pour le svm sélectionné.
+
+Exemple :
+
+Pour exécuter la découverte sur un système back-end de stockage spécifié par l'ID
+
+[listing]
+----
+POST
+/api/v1/vcenters/3fa85f64-5717-4562-b3fc-2c963f66afa6/storage-backends/74e85f64-5717-4562-b3fc-2c963f669dde/discovery-jobs
+----
+Vous devez transmettre x-auth pour l'API. Vous pouvez générer cette x-auth à partir de la nouvelle API ajoutée sous Auth dans swagger.
+
+[listing]
+----
+/virtualization/api/v1/auth/vcenter-login
+----

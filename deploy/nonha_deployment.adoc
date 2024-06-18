@@ -1,0 +1,120 @@
+---
+permalink: deploy/nonha_deployment.html 
+sidebar: sidebar 
+keywords:  
+summary: Vous pouvez configurer un nœud unique non HA dans des configurations de petite, moyenne ou grande taille. 
+---
+= Comment déployer une configuration à un seul nœud non HA
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vous pouvez configurer un nœud unique non HA dans des configurations de petite, moyenne ou grande taille.
+
+* La petite configuration non HA contient 8 processeurs et 16 Go de RAM.
+* La configuration moyenne non haute disponibilité contient 12 processeurs et 24 Go de RAM.
+* La grande configuration non HA contient 16 processeurs et 32 Go de RAM.
+
+
+Assurez-vous que la route réseau est présente.
+Exemple : C1_sti67-vsim-ucs154k_1679633108::> network route create -vserver <SVM> -destination 0.0.0.0/0 -Gateway <gateway_ip>
+
+*À propos de cette tâche*
+
+Dans cette tâche, vous apprendrez à installer un nœud unique non HA dans des configurations de petite, moyenne ou haute disponibilité.
+
+*Étapes*
+
+. Connectez-vous au serveur vSphere.
+. Accédez au pool de ressources ou à l'hôte sur lequel vous souhaitez déployer l'OVA.
+. Cliquez avec le bouton droit de la souris sur le centre de données requis et sélectionnez *déployer le modèle OVF...*.
+. Vous pouvez entrer l'URL du fichier _.ova_ ou naviguer jusqu'au dossier dans lequel le fichier _.ova_ est enregistré, puis sélectionner *Suivant*.
+. Sélectionnez un nom et un dossier pour la machine virtuelle et sélectionnez *Suivant*.
+. Sélectionnez l'hôte et sélectionnez *Suivant*
+. Passez en revue le résumé du modèle et sélectionnez *Suivant*.
+. Lisez et acceptez le contrat de licence et sélectionnez *Suivant*.
+. Dans la fenêtre *Configuration*, sélectionnez *Configuration de nœud unique non-HA(petit)*, *nœud unique non-HA(moyen)* ou *nœud unique non-HA(grand)*.
+. Dans la fenêtre Configuration, choisissez la taille requise pour la configuration de nœud unique non HA et sélectionnez *Suivant*.
+. Sélectionnez le datastore où vous devez déployer l'OVA et sélectionnez *Suivant*.
+. Sélectionnez le réseau source et de destination et sélectionnez *Suivant*.
+. Sélectionnez la fenêtre *Personnaliser le modèle* > *Configuration système*. Entrez les informations suivantes :
++
+.. Nom d'utilisateur et mot de passe du fournisseur VASA : ce nom d'utilisateur et ce mot de passe sont utilisés pour enregistrer le fournisseur VASA dans vCenter.
+.. La case *Activer ASUP* est cochée par défaut.
++
+ASUP peut uniquement être activé ou désactivé pendant le déploiement.
+
+.. Nom d'utilisateur administrateur et mot de passe administrateur : il s'agit du mot de passe utilisé pour se connecter à l'interface utilisateur *ONTAP Tools Manager*.
+.. Entrez les informations relatives au serveur NTP dans le champ *serveurs NTP*.
+.. Mot de passe utilisateur de maintenance : permet d'accorder l'accès aux options de la console de maintenance.
+
+
+. Dans la fenêtre *Personnaliser le modèle* > *VASA Provider Certificates*, entrez les détails suivants :
++
+.. Cochez la case Activer le certificat d'autorité de certification personnalisé. Ceci est nécessaire pour l'activation multi-VC. Dans le cas d'un environnement non multi-VC, ignorez la case à cocher. Il n'est pas nécessaire de mentionner les certificats et le nom de domaine, vous devez uniquement fournir les détails de l'adresse IP virtuelle.
+.. Copiez et collez les certificats racine et intermédiaire.
+.. Copiez et collez les certificats Leaf et la clé privée.
+.. Entrez le nom de domaine avec lequel vous avez généré le certificat.
+.. Saisissez les détails de l'adresse IP de l'équilibrage de charge.
+
+
+. Dans la fenêtre *Personnaliser le modèle* > *Configuration du déploiement*, entrez les détails suivants :
++
+.. Entrez une adresse IP libre dans Virtual IP pour le plan de contrôle K8s. Cela est nécessaire pour le serveur d'API K8s.
+.. Cochez la case en regard de l'option *Activer l'évaluation du SVM* lorsque vous avez l'intention d'utiliser la SVM directe. Pour utiliser un cluster ONTAP, ne cochez pas la case.
++
+
+NOTE: Lorsque l'étendue de SVM est activée, vous devez déjà avoir activé la prise en charge des SVM avec l'IP de gestion.
+
+.. Entrez les détails affichés dans l'image ci-dessous :
++
+image::../media/ng_deployment_configuration.png[configuration du déploiement]
+
+.. Entrer le cluster ONTAP ou l'IP de gestion du SVM dans *LIF de gestion ONTAP/SVM*.
+.. Entrer dans le cluster ONTAP ou le SVM *ONTAP/SVM Data LIF*.
+.. Pour la VM de stockage, vous pouvez choisir de fournir les détails par défaut de votre VM de stockage ONTAP ou de créer une nouvelle VM de stockage. Ne pas entrer la valeur dans le champ *Storage VM* lorsque l'option Activer le périmètre SVM est sélectionnée car ce champ est ignoré.
+.. Entrer le nom d'utilisateur ONTAP/SVM
+.. Entrez le mot de passe ONTAP/SVM.
+.. L'option Activer la migration est désactivée par défaut. Ne modifiez pas ce choix.
+.. La VM principale est activée par défaut. Ne modifiez pas ce choix.
+
+
+. Dans la fenêtre *Personnaliser le modèle* > *Configuration du nœud*, entrez les propriétés réseau de l'OVA.
++
+
+NOTE: Les informations fournies ici seront validées pour les modèles appropriés pendant le processus d'installation. En cas de divergence, un message d'erreur s'affiche sur la console Web et vous êtes invité à corriger toute information incorrecte fournie.
+
++
+.. Entrez le nom d'hôte.
+.. Entrez l'adresse IP mappée sur le nom d'hôte.
+.. Longueur du préfixe (uniquement pour IPV6)
+.. Masque de réseau (uniquement pour IPV4)
+.. Passerelle
+.. DNS principal
+.. DNS secondaire
+.. Domaines de recherche
+
+
+. Passez en revue les détails dans la fenêtre *prêt à terminer*, sélectionnez *TERMINER*.
++
+Au fur et à mesure de la création de la tâche, la progression s'affiche dans la barre des tâches vSphere.
+
+. Mettez le serveur virtuel sous tension une fois la tâche terminée.
++
+L'installation commence. Vous pouvez suivre la progression de l'installation dans la console Web de la machine virtuelle.
+Dans le cadre de l'installation, les configurations de nœuds sont validées. Les entrées fournies sous différentes sections du *modèle de personnalisation* dans le formulaire OVF sont validées. En cas de divergence, une boîte de dialogue vous invite à prendre des mesures correctives.
+
+. Pour apporter les modifications nécessaires dans l'invite de la boîte de dialogue, procédez comme suit :
++
+.. Double-cliquez sur la console Web pour commencer à interagir avec la console.
+.. Utilisez les touches fléchées VERS LE HAUT et VERS LE BAS de votre clavier pour naviguer dans les champs indiqués.
+.. Utilisez les touches fléchées DROITE et GAUCHE de votre clavier pour naviguer vers l'extrémité droite ou gauche de la valeur fournie au champ.
+.. Utilisez TAB pour naviguer dans le panneau pour entrer vos valeurs, *OK* ou *ANNULER*.
+.. Utilisez ENTER pour sélectionner *OK* ou *ANNULER*.
+
+
+. Lorsque vous sélectionnez *OK* ou *CANCEL*, les valeurs fournies seront à nouveau validées. Vous avez la disposition pour corriger n'importe quelle valeur 3 fois. Si vous ne parvenez pas à corriger au cours des 3 tentatives, l'installation du produit s'arrête et il est conseillé d'essayer l'installation sur une nouvelle machine virtuelle.
+. Une fois l'installation terminée, la console Web affiche un message indiquant que les outils ONTAP pour VMware vSphere sont en état de fonctionnement.
+

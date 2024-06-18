@@ -1,0 +1,37 @@
+---
+permalink: configure/ip_whitelisting.html 
+sidebar: sidebar 
+keywords:  
+summary: 'Cette fonction vous permet de spécifier une adresse hôte ESXi spécifique qui sera autorisée pour l"opération de montage du datastore.' 
+---
+= Gérer l'accès au réseau
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cette fonction vous permet de spécifier une adresse hôte ESXi spécifique qui sera autorisée pour l'opération de montage du datastore.
+
+Lorsque vous avez plusieurs adresses IP pour les hôtes ESXi, toutes les adresses IP découvertes de l'hôte sont ajoutées à une règle d'export. Si vous ne souhaitez pas ajouter toutes les adresses IP à la règle d'export, indiquez un paramètre pour les adresses IP blanches dans une liste ou une plage séparées par des virgules ou CIDR, ou une combinaison des trois pour chaque vCenter.
+
+Si le paramètre n'est pas fourni, export policy ajoute toutes les adresses IP découvertes lors de l'étape de pré-montage. Si le paramètre est fourni, les outils ONTAP n'ajoutent que ceux qui se trouvent dans les adresses IP ou la plage blanches. Si aucune des adresses IP d'un hôte n'appartient aux adresses IP blanches, le montage sur cet hôte échoue.
+
+Par défaut, toutes les adresses IP de l'hôte sont ajoutées à la export policy.
+
+Utilisez l'API suivante pour ajouter des adresses IP pour la liste blanche :
+
+[listing]
+----
+patch /api/v1/vcenters/{vcguid}/settings/ip-whitelist
+
+{
+    value: string
+}
+
+GET /api/v1/vcenters/{vcguid}/settings/ip-whitelist
+
+{
+    value: string
+}
+----

@@ -1,0 +1,30 @@
+---
+permalink: configure/associate_storage_backend.html 
+sidebar: sidebar 
+keywords:  
+summary: 'besoin d"informations.' 
+---
+= Associez le système back-end de stockage à vCenter
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La page de liste vCenter affiche le nombre de systèmes back-end de stockage associés. Chaque vCenter a la possibilité d'associer un système back-end de stockage
+
+*À propos de cette tâche*
+
+Cette tâche vous permet de créer un mappage entre le système back-end de stockage et vCenter intégré à l'échelle mondiale.
+
+*Étapes*
+
+. Lancement `\https://loadBalanceIP:8443/virtualization/ui/` À partir d'un navigateur avec les informations d'identification de l'administrateur des outils ONTAP fournies pendant le déploiement.
+. Sélectionnez vCenters dans la barre latérale.
+. Cliquez sur les points de suspension verticaux en regard du vCenter que vous souhaitez associer aux systèmes back-end de stockage.
+. Sélectionnez Storage backend dans la liste déroulante.
+. Sélectionnez l'option *associer le système back-end de stockage* pour associer vCenter au système back-end de stockage requis.
++
+Voir link:../configure/task_configure_user_role_and_privileges.html["Liste des privilèges minimaux requis pour les utilisateurs du cluster dont le périmètre global n'est pas défini sur admin"].
+
+

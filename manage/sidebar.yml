@@ -1,0 +1,34 @@
+---
+section: manage
+title: Gérer les outils ONTAP
+entries:
+- title: Gérer les datastores
+  entries:
+  - title: Extension ou réduction du stockage du datastore vVol
+    url: "/manage/expand_storage_of_vvol_datastore.html"
+  - title: Supprimer le datastore vVols
+    url: "/manage/task_remove_storage_from_a_vvols_datastore.html"
+  - title: Monter et démonter un datastore vVols
+    url: "/manage/task_mount_a_vvols_datastore.html"
+- title: Gestion du back-end de stockage
+  url: "/manage/storage_backend.html"
+- title: Gestion de vCenter
+  url: "/manage/manage_vcenter.html"
+- title: Gestion du cycle de vie des VVol
+  url: "/manage/vvol_lifecycle_management.html"
+- title: IGroup géré et règles d'exportation
+  url: "/manage/igroup_management.html"
+- title: Accédez à la console de maintenance des outils ONTAP
+  entries:
+  - title: Présentation des outils ONTAP console de maintenance
+    url: "/manage/reference_maintenance_console_of_ontap_tools_for_vmware_vsphere.html"
+  - title: Configurer l'accès aux diagnostics à distance
+    url: "/manage/task_configure_vasa_provider_to_use_ssh_for_remote_diag_access.html"
+  - title: Démarrez la SSH sur les autres nœuds
+    url: "/manage/start_the_ssh_on_other_nodes.html"
+  - title: Mettez à jour les informations d'identification vCenter et ONTAP
+    url: "/manage/update_vcenter_ontap_credentials.html"
+- title: Collectez les fichiers journaux
+  url: "/manage/task_collect_the_log_files.html"
+- title: Détection
+  url: "/manage/discovery.html"
