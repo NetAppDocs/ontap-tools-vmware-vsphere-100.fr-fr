@@ -818,7 +818,6 @@ Vous devez transmettre x-auth pour l'API. Vous pouvez générer cette x-auth à 
   <block id="6b50b8836085008a8950ddeafeb7453a" category="list-text">Actualisez le certificat sur tous les hôtes.</block>
   <block id="8d1fe487abd8a4fd3b25772f93b38695" category="list-text">Attendez quelques instants avant d'effectuer des opérations de datastore (DS) et de machine virtuelle (VM). Le temps d'attente dépend du nombre d'hôtes, de DS et de VM présents dans la configuration. Si vous n'attendez pas, les opérations peuvent échouer par intermittence.</block>
   <block id="8f7be3c874feb6ef0fd5f20afd8d5fbb" category="sidebar">Les outils ONTAP pour VMware vSphere vous permettent de configurer, gérer et protéger vos datastores virtuels dans votre environnement vCenter Server.</block>
-  <block id="46c4d9bfa1c229940459326940489ab0" category="sidebar">Documentation sur les outils ONTAP pour VMware vSphere</block>
   <block id="be11c74c1dd7f307bb80183a90dc2067" category="sidebar">Commencez</block>
   <block id="da951ef1610be90b45b31baf7b25b179" category="sidebar">Découvrez les outils ONTAP pour VMware vSphere</block>
   <block id="3d7fe3e43f9f24fffe5ed0d546d12f13" category="sidebar">Déployez les outils ONTAP</block>
@@ -840,4 +839,5 @@ Vous devez transmettre x-auth pour l'API. Vous pouvez générer cette x-auth à 
   <block id="4226794a7bb33ab0a2309e30c07c9031" category="sidebar">Gérer les outils ONTAP</block>
   <block id="956040396bc93fbe70e3c9e235f5bfdb" category="sidebar">Accédez à la console de maintenance des outils ONTAP</block>
   <block id="1fa54bab7f1f7a04eb85d45383a68d04" category="sidebar">Migrez vers la dernière version des outils ONTAP</block>
+  <block id="70805c0934ed6aecfa95bd2f05ac18f9" category="sidebar">Documentation relative aux outils ONTAP pour VMware vSphere 10.0</block>
 </blocks>
