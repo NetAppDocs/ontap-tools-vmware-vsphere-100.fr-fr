@@ -19,7 +19,6 @@
   <block id="aea7780202aad9f17865502971d71ddb" category="paragraph">Le tableau de bord vVvols affiche les metrics pour les datastores ONTAP 9.6 ou antérieurs SAN vvols uniquement après l'enregistrement des services API OnCommand.</block>
   <block id="d33f2a600ba4fe43084a26e95e4908c0" category="paragraph">*Informations connexes*</block>
   <block id="09ea0908fbfc4cde85bf416e35dc55c8" category="inline-link">Support NetApp</block>
-  <block id="cba784dbb6dad30cadc1fcb2d1b5ee81" category="paragraph"><block ref="cba784dbb6dad30cadc1fcb2d1b5ee81" category="inline-link-rx"></block></block>
   <block id="1f20c5324bd47f6a89468a55d2c34744" category="summary">Vérifier que le SVM intégré est répertorié sous VASA Provider dans l'interface utilisateur vCenter.</block>
   <block id="a8bda24f7b029a4e9ed8df1730260e6b" category="doc">Vérifier le SVM enregistré</block>
   <block id="3b81d27fac8f09b16f1a3c38fef1586e" category="list-text">Accédez à vCenter Server.</block>
@@ -693,7 +692,6 @@ Le menu Rapport récapitulatif de machine virtuelle de vvols fournit les indicat
   <block id="b8bafde4431b38de965f30c3734964f4" category="summary">Vous pouvez gérer les volumes virtuels (vVols) à l'aide de l'interface utilisateur de VMware vCenter.</block>
   <block id="d9276c26f2211283ba19ffbe9892975e" category="doc">Gestion du cycle de vie des VVol</block>
   <block id="70cd8bfb8fd7a4082087201414ab2fe4" category="inline-link">Documentation VMware</block>
-  <block id="56b27132529593e6a2643cedb7fc831b" category="paragraph">Vous pouvez gérer les volumes virtuels (vVols) à l'aide de l'interface utilisateur de VMware vCenter. Pour plus de détails, reportez-vous à<block ref="306659423eb4d9ea8034618888b3eb7c" category="inline-link-rx"></block>.</block>
   <block id="41187f39c5556f847389f030fbe4053d" category="summary">Cette API supprime le datastore VMware Virtual volumes (vVols) du stockage.</block>
   <block id="da7b82b6a9be0a66d777ff248aa41e61" category="doc">Supprimer le datastore vVols</block>
   <block id="2d36e1f0f8fe164f2254fd5074ea89ac" category="paragraph">Il existe un datastore vVvols tant qu'au moins un volume FlexVol est disponible sur le datastore. Si vous souhaitez supprimer un datastore vVols dans un cluster HA, vous devez d'abord démonter le datastore de tous les hôtes du cluster HA, puis supprimer manuellement le dossier _.vsphere-HA_ résidant à l'aide de l'interface utilisateur du serveur vCenter.</block>
@@ -840,4 +838,6 @@ Vous devez transmettre x-auth pour l'API. Vous pouvez générer cette x-auth à 
   <block id="956040396bc93fbe70e3c9e235f5bfdb" category="sidebar">Accédez à la console de maintenance des outils ONTAP</block>
   <block id="1fa54bab7f1f7a04eb85d45383a68d04" category="sidebar">Migrez vers la dernière version des outils ONTAP</block>
   <block id="70805c0934ed6aecfa95bd2f05ac18f9" category="sidebar">Documentation relative aux outils ONTAP pour VMware vSphere 10.0</block>
+  <block id="f4d1718476f238773172cc8143587c05" category="paragraph"><block ref="f4d1718476f238773172cc8143587c05" category="inline-link-rx"></block></block>
+  <block id="1e4b9ffc4e54052240830044d276f69d" category="paragraph">Vous pouvez gérer les volumes virtuels (vVols) à l'aide de l'interface utilisateur vCenter de VMware. Pour plus de détails, consultez <block ref="b31ad4861a6077bb3dacdbc9a1a70e79" category="inline-link-rx"></block>.</block>
 </blocks>
